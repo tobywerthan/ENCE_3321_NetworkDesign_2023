@@ -1,41 +1,69 @@
-# Imports
 import socket
+import struct
 
 # Global Variables
-port = None
 host = None
-socket_conn = None
-message = None
+port = None
+data = None
+
+
+# UDP Checksum Function
+def checksum_func(data):
+    checksum = 0
+    data_len = len(data)
+
+    # Appends 0's to the end of data and adjusts data_len
+    if data_len % 2:
+        data_len += 1
+        data += struct.pack("!B", 0)
+
+    # Compute the sum
+    for i in range(0, data_len, 2):
+        w = (data[i] << 8) + (data[i + 1])
+        checksum += w
+
+    # Wrap around bit
+    checksum = (checksum >> 16) + (checksum & 0xFFFF)
+
+    # Complement the result
+    checksum = ~checksum & 0xFFFF
+    return checksum
 
 
 # Create Socket
 def socket_create():
-    global host, port, socket_conn
+    global host
+    global port
+    global s
     host = "localhost"
-    port = 8888
+    port = 1001
 
     try:
-        # Create UDP socket
-        socket_conn = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        socket_conn.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     except socket.error as msg:
         print("Socket creation error: " + str(msg))
 
 
-# State 0
+# State0
 def state0():
-    global host, port, socket_conn, message
+    global host
+    global port
+    global s
+    global data
 
-    # Write message
-    message = str(input("Enter you message: "))
-
-    # Escape loop
+    message = input("Message: ")
     if message == "quit":
         return None
     else:
         try:
-            # Send message
-            socket_conn.sendto(message.encode("utf-8"), (host, port))
+            # Compute checksum
+            checksum = checksum_func(bytes(message.encode("utf-8")))
+
+            # Append checksum to data
+            data = str(message) + "|" + str(checksum)
+            s.sendto(data.encode("utf-8"), (host, port))
+
         except socket.error as msg:
             print("Error sending message: " + str(msg))
 
@@ -44,43 +72,42 @@ def state0():
 
 # State 1
 def state1():
-    global host, port, socket_conn, message
+    global host
+    global port
+    global s
+    global data
 
     try:
-        # Waiting for response
         print("Waiting for ACK or NACK...")
 
-        response, addr = socket_conn.recvfrom(1024)
-        answer = str(response.decode("utf-8"))
+        response, addr = s.recvfrom(1024)
 
-        # Checking response
+        answer = str(response.decode("utf-8"))
         if answer == "NACK":
-            # Resend Message
-            print("Message not recieved correctly.")
-            socket_conn.sendto(message.encode("utf-8"), (host, port))
+            # Resend message
+            s.sendto(data.encode("utf-8"), (host, port))
             print("Sending message again...")
             return state1
 
         elif answer == "ACK":
-            # Acknowledge successful delivery
-            print("Message recieved.")
+            print("Message received.")
             return state0
 
     except socket.error as msg:
         print("Error sending message: " + str(msg))
 
 
-# Main
+# Main Function
 if __name__ == "__main__":
-    # Create socket
+    global s
+
+    # created socket
     socket_create()
 
-    # Initial state
+    # Initial State
     state = state0
-
     while state:
-        # Loop FSM
         state = state()
 
-    # Close socket
-    socket_conn.close()
+    s.close()
+    print("FSM Done")
