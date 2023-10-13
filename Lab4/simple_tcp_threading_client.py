@@ -15,8 +15,8 @@ def socket_create():
     global host
     global port
     global s
-    host = "10.5.63.73"
-    port = 1001
+    host = "10.5.62.102"
+    port = 1010
 
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
