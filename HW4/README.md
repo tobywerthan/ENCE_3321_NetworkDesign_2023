@@ -31,7 +31,7 @@ ENCE 3321
 <h2>Introduction</h2>  <a name="introduction"></a>
 <dl><dd>
     <p>
-       The purpose of this lab was to incorporate the simple electrostatic discharge protection circuit seen in Figure 1 with the padframe constructed in Lab 2. The circuit consists of two diodes that regulate the voltage through the output node. Integrating ESD protection in the padframe will help prevent the internal logic from being damaged. The final integrated circuit consists of a pad cell that has ESD protection, a padframe consisting of pad cells with ESD protection, and finally an NMOS transistor connected to the ESD-protected padframe. 
+       The purpose of this homework was to create a UDP client in python that acts as a pinger. The client is meant to interact with the provided UDP server. The 
     </p>
 </dd><dl>
 
@@ -49,7 +49,7 @@ ENCE 3321
 
 <dl><dd><dl><dd><p>
 <p align="center">
-  <img width="300" height="600" src="https://github.com/tobywerthan/ENCE_3321_NetworkDesign_2023/assets/55803740/5d87614f-569c-4796-9e3a-a76e2b391555">
+  <img width="250" height="600" src="https://github.com/tobywerthan/ENCE_3321_NetworkDesign_2023/assets/55803740/5d87614f-569c-4796-9e3a-a76e2b391555">
 </p>
 <p align="center">Figure 1 (Flowchart of main())</p>
 
@@ -251,5 +251,142 @@ ENCE 3321
 </p></dd></dl></dd></dl>
 
 <h2>Conclusion</h3>  <a name="conclusion"></a>
-    Connecting each pad cell to this simple ESD protection circuit provides some defense against ESD for the internals of the IC. This design can be used in further projects for more complex circuits, and padframes can be created from this library that incorporate more complex ESD protection as well. Lab 4 dives further into the use of transistors for the design of pullup and pulldown networks for logic gates, specifically, the inverter. 
+
+<dl><dd>
+    <p>Conslusion</p>
+    <p align="center">
+        <img width="750" height="300" src="https://github.com/tobywerthan/ENCE_3321_NetworkDesign_2023/assets/55803740/931e1e12-d1dc-4940-851f-42b84a76c35b">
+    </p>
+    <p align="center">Figure 9 (Running the UDP client with no packet loss)</p>
+    <p align="center">
+        <img width="750" height="300" src="https://github.com/tobywerthan/ENCE_3321_NetworkDesign_2023/assets/55803740/3499f12d-fc5a-4c3f-89d3-53d198625695">
+    </p>
+    <p align="center">Figure 10 (Running the UDP client with packet loss)</p>
+        
+        import sys, time
+        from time import sleep
+        import socket
+        
+        
+        # Socket create
+        def socket_create():
+            # Global variables
+            global host
+            global port
+            global s
+            global addr
+        
+            # Assign host and port and define timeout
+            host = "localhost"
+            port = 1001
+            timeout = 1
+        
+            # Try except for socket creation
+            try:
+                s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                s.settimeout(timeout)
+            except socket.error as msg:
+                print("Socket creation error: " + str(msg))
+        
+        
+        # Ping client
+        def ping_client():
+            # Global variables
+            global s, host, port, RTT, ptime, addr, time, packet_lost
+        
+            # Sequence number of the ping message
+            ptime = 0
+        
+            # Set round trip time, number of packets lost, client input, and number of client inputs to empty or zero
+            RTT = 0
+            packet_lost = 0
+            client_input = ""
+            input_count = 0
+        
+            # Get the input message from the client
+            while not (client_input == "RND" or client_input == "NO RND"):
+                if input_count > 0:
+                    print("ping> Unrecognized Command: {}".format(client_input))
+                    print("      Valid Commands: RND, NO RND")
+                client_input = input("ping> ").strip()
+                input_count += 1
+            print("")
+            print("Pinging server in mode: {}".format(client_input))
+            print("")
+        
+            # Ping for 10 times
+            while ptime < 10:
+                ptime += 1
+                # Format the message to be sent
+                message = client_input
+        
+                try:
+                    # Sent time
+                    RTTb = time.time()
+        
+                    # Send the UDP packet with the ping message
+                    try:
+                        s.sendto(message.encode("utf-8"), (host, port))
+                    except socket.error as msg:
+                        print(str(msg))
+        
+                    # Receive the server response
+                    data, addr = s.recvfrom(2048)
+        
+                    # Received time
+                    RTTa = time.time()
+        
+                    # Compute RTT
+                    RTT_packet = RTTa - RTTb
+                    RTT = (RTT_packet) + RTT
+        
+                    # Display packet time
+                    dataCount = len(data)
+                    print(
+                        "{} bytes from {}: seq={} time={} ms".format(
+                            dataCount, addr[0], ptime, RTT_packet * 1000
+                        )
+                    )
+        
+                    # Delay for readability
+                    sleep(1)
+        
+                except:
+                    # Server does not response
+                    # Assume the packet is lost
+                    print("Request timed out.")
+                    packet_lost += 1
+                    continue
+        
+            # Close socket
+            s.close()
+        
+        
+        # Run ping statistics
+        def ping_statistics(ptime, time):
+            # Global variables
+            global s, host, port, RTT, addr
+        
+            print("")
+            print("--- IP ping statistics ---")
+        
+            # Print statistics
+            packet_loss = ((packet_lost) / 10) * 100
+            packet_recieved = 10 - packet_lost
+            print(
+                "{} packets transmitted, {} recieved, {}% packet loss, time {} ms".format(
+                    ptime, packet_recieved, packet_loss, RTT * 1000
+                )
+            )
+        
+        
+        # **************************************
+        if __name__ == "__main__":
+            socket_create()
+            ping_client()
+            ping_statistics(ptime, time)
+<p align="center">Figure 11 (Full code for the UDP client))</p>
+</dd><dl>
+    
 </div>
