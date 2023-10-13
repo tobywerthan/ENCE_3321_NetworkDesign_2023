@@ -49,16 +49,21 @@ ENCE 3321
 
 <dl><dd><dl><dd><p>
 <p align="center">
-  <img width="325" height="500" src="https://github.com/tobywerthan/ENCE_3501_VLSI_2023/assets/55803740/0ae45432-c1fe-41d4-857e-ba36e2a3f9ca">
+  <img width="300" height="600" src="https://github.com/tobywerthan/ENCE_3321_NetworkDesign_2023/assets/55803740/5d87614f-569c-4796-9e3a-a76e2b391555">
 </p>
-<p align="center">Figure 4 (Layout of the pad cell with ESD protection created in Electric VLSI)</p>
+<p align="center">Figure 1 (Flowchart of main())</p>
+
 </p></dd></dl></dd></dl>
 
 <dl><dd><h3>Code</h3> <a name="mainCode"></a></dd></dl> 
 
 <dl><dd><dl><dd><p>
 
-    
+    if __name__ == "__main__":
+        socket_create()
+        ping_client()
+        ping_statistics(ptime, time)
+<p align="center">Figure 2 (Snippet of the code from main())</p>
 </p></dd></dl></dd></dl>
 
 <h2>socket_create()</h2> <a name="create"></a>
@@ -75,16 +80,36 @@ ENCE 3321
 
 <dl><dd><dl><dd><p>
 <p align="center">
-  <img width="325" height="500" src="https://github.com/tobywerthan/ENCE_3501_VLSI_2023/assets/55803740/0ae45432-c1fe-41d4-857e-ba36e2a3f9ca">
+  <img width="325" height="700" src="https://github.com/tobywerthan/ENCE_3321_NetworkDesign_2023/assets/55803740/04bbc010-37b5-4516-bc7c-ca61b8a1234a">
+
 </p>
-<p align="center">Figure 4 (Layout of the pad cell with ESD protection created in Electric VLSI)</p>
+<p align="center">Figure 3 (Flowchart of socket_create())</p>
 </p></dd></dl></dd></dl>
 
 <dl><dd><h3>Code</h3> <a name="createCode"></a></dd></dl> 
 
 <dl><dd><dl><dd><p>
 
+    def socket_create():
+        # Global variables
+        global host
+        global port
+        global s
+        global addr
     
+        # Assign host and port and define timeout
+        host = "localhost"
+        port = 1001
+        timeout = 1
+    
+        # Try except for socket creation
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            s.settimeout(timeout)
+        except socket.error as msg:
+            print("Socket creation error: " + str(msg))
+<p align="center">Figure 4 (Snippet of the code from socket_create())</p>
 </p></dd></dl></dd></dl>
 
 <h2>ping_client()</h2> <a name="ping"></a>
@@ -101,16 +126,87 @@ ENCE 3321
 
 <dl><dd><dl><dd><p>
 <p align="center">
-  <img width="325" height="500" src="https://github.com/tobywerthan/ENCE_3501_VLSI_2023/assets/55803740/0ae45432-c1fe-41d4-857e-ba36e2a3f9ca">
+  <img width="600" height="1150" src="https://github.com/tobywerthan/ENCE_3321_NetworkDesign_2023/assets/55803740/5dbcc58b-e46f-41ab-8aa8-6090000919bd">
 </p>
-<p align="center">Figure 4 (Layout of the pad cell with ESD protection created in Electric VLSI)</p>
+<p align="center">Figure 5 (Flowchart of ping_client())</p>
+
 </p></dd></dl></dd></dl>
 
 <dl><dd><h3>Code</h3> <a name="pingCode"></a></dd></dl> 
 
 <dl><dd><dl><dd><p>
 
+    def ping_client():
+        # Global variables
+        global s, host, port, RTT, ptime, addr, time, packet_lost
     
+        # Sequence number of the ping message
+        ptime = 0
+    
+        # Set round trip time, number of packets lost, client input, and number of client inputs to empty or zero
+        RTT = 0
+        packet_lost = 0
+        client_input = ""
+        input_count = 0
+    
+        # Get the input message from the client
+        while not (client_input == "RND" or client_input == "NO RND"):
+            if input_count > 0:
+                print("ping> Unrecognized Command: {}".format(client_input))
+                print("      Valid Commands: RND, NO RND")
+            client_input = input("ping> ").strip()
+            input_count += 1
+        print("")
+        print("Pinging server in mode: {}".format(client_input))
+        print("")
+    
+        # Ping for 10 times
+        while ptime < 10:
+            ptime += 1
+            # Format the message to be sent
+            message = client_input
+    
+            try:
+                # Sent time
+                RTTb = time.time()
+    
+                # Send the UDP packet with the ping message
+                try:
+                    s.sendto(message.encode("utf-8"), (host, port))
+                except socket.error as msg:
+                    print(str(msg))
+    
+                # Receive the server response
+                data, addr = s.recvfrom(2048)
+    
+                # Received time
+                RTTa = time.time()
+    
+                # Compute RTT
+                RTT_packet = RTTa - RTTb
+                RTT = (RTT_packet) + RTT
+    
+                # Display packet time
+                dataCount = len(data)
+                print(
+                    "{} bytes from {}: seq={} time={} ms".format(
+                        dataCount, addr[0], ptime, RTT_packet * 1000
+                    )
+                )
+    
+                # Delay for readability
+                sleep(1)
+    
+            except:
+                # Server does not response
+                # Assume the packet is lost
+                print("Request timed out.")
+                packet_lost += 1
+                continue
+    
+        # Close socket
+        s.close()
+<p align="center">Figure 6 (Snippet of the code from ping_client())</p>
 </p></dd></dl></dd></dl>
 
 <h2>ping_statistics()</h2> <a name="stats"></a>
@@ -127,16 +223,31 @@ ENCE 3321
 
 <dl><dd><dl><dd><p>
 <p align="center">
-  <img width="325" height="500" src="https://github.com/tobywerthan/ENCE_3501_VLSI_2023/assets/55803740/0ae45432-c1fe-41d4-857e-ba36e2a3f9ca">
+  <img width="325" height="600" src="https://github.com/tobywerthan/ENCE_3321_NetworkDesign_2023/assets/55803740/e9ae46e1-4275-450a-b67c-1db80d31343d">
 </p>
-<p align="center">Figure 4 (Layout of the pad cell with ESD protection created in Electric VLSI)</p>
+<p align="center">Figure 7 (Flowchart of ping_statistics())</p>
 </p></dd></dl></dd></dl>
 
 <dl><dd><h3>Code</h3> <a name="statsCode"></a></dd></dl> 
 
 <dl><dd><dl><dd><p>
 
-    
+    def ping_statistics(ptime, time):
+    # Global variables
+    global s, host, port, RTT, addr
+
+    print("")
+    print("--- IP ping statistics ---")
+
+    # Print statistics
+    packet_loss = ((packet_lost) / 10) * 100
+    packet_recieved = 10 - packet_lost
+    print(
+        "{} packets transmitted, {} recieved, {}% packet loss, time {} ms".format(
+            ptime, packet_recieved, packet_loss, RTT * 1000
+        )
+    )
+<p align="center">Figure 8 (Snippet of the code from ping_statistics())</p>
 </p></dd></dl></dd></dl>
 
 <h2>Conclusion</h3>  <a name="conclusion"></a>
