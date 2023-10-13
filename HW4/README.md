@@ -31,7 +31,7 @@ ENCE 3321
 <h2>Introduction</h2>  <a name="introduction"></a>
 <dl><dd>
     <p>
-       The purpose of this homework was to create a UDP client in python that acts as a pinger. The client is meant to interact with the provided UDP server. The 
+       The purpose of this homework was to create a UDP client in Python that acts as a pinger. The client is meant to interact with the provided server through UDP sockets. The client sends a message (utf-8 encoded) to the server and receives one back depending on if simulated packet loss is enabled. The round trip time of each packet, as well as the total RTT of 10 transmitted packets, is calculated. Each packet's RTT is displayed if the message from the server is received. Once all packets have been transmitted, the pinger statistics are displayed including total RTT, packet loss, and packets transmitted. This program uses the packages: time, sys, and socket. 
     </p>
 </dd><dl>
 
@@ -41,7 +41,7 @@ ENCE 3321
 
 <dl><dd><dl><dd>
     <p>    
-        The schematic for the pad cell with ESD protection (Figure 2) is similar to Figure 1. The voltage source is connected to a pActive-nWell diode, while ground is connected to a pWell-nActive diode. The connection pin to the pad cell is connected between both diodes. 
+        The main program consists of three sub-functions: socket_create(), ping_client(), and ping_statistics(). Each program has dedicated tasks related to the communication between client and server as well as calculations and displaying data. 
     </p>
 </dd></dl></dd></dl>
 
@@ -72,7 +72,7 @@ ENCE 3321
 
 <dl><dd><dl><dd>
     <p>    
-        The schematic for the pad cell with ESD protection (Figure 2) is similar to Figure 1. The voltage source is connected to a pActive-nWell diode, while ground is connected to a pWell-nActive diode. The connection pin to the pad cell is connected between both diodes. 
+        The function socket_create() handles the definition of host, port, timeout, and the creation of a UDP socket. The function starts by declaring global variables necessary throughout the program. Then the host, port, and timeout are all assigned values. The function then implements a try-except block that catches any errors in the creation of the UDP socket. The socket's timeout is also set within the try-except block. A future iteration might have two separate try-except blocks, one for the creation of the socket and the other for setting the timeout. This will help differentiate between error messages. 
     </p>
 </dd></dl></dd></dl>
 
@@ -118,7 +118,10 @@ ENCE 3321
 
 <dl><dd><dl><dd>
     <p>    
-        The schematic for the pad cell with ESD protection (Figure 2) is similar to Figure 1. The voltage source is connected to a pActive-nWell diode, while ground is connected to a pWell-nActive diode. The connection pin to the pad cell is connected between both diodes. 
+        The function ping_client() makes use of the socket created in socket_create() to communicate with the server. First, the necessary global variables are declared, and variables are initialized. The sequence number (each iteration of the ping) is set to zero. Likewise, the total RTT, packets lost, and input count are all initialized at zero. The client input is initialized to an empty string. 
+        A while loop checks the client input, and will continue looping if the string does not equal, "RND" or "NO RND". Within the loop, if the input count is greater than zero (the client has yet to input any commands since program execution) an error message is displayed with the unrecognized command. The list of valid commands is also displayed. The client input is then recorded and the input count increments. Once the while loop completes (the client enters a valid command), the entered command is displayed. 
+        Another while loop then checks if the sequence number is less than ten. If so, the sequence number is incremented. The message to be sent to the server is then set to the client input. A try-except block then wraps the entire individual ping to the server. The current time is then recorded, and another try-except block is used to send the encoded message to the server. If an error occurs when sending the message, the error is printed. The data from the server is then received and another timestamp is recorded. The RTT for the individual ping is calculated using the two recorded timestamps. That value is then used to add to the total RTT. The amount of bytes received from the server is then recorded. The number of bytes, address, sequence number, and packet RTT are all displayed proceeding with a delay of one second. In the event that the client selects "RND" mode, the server will occasionally not send back messages. Because the timeout is set to one second, the exception is hit, and "Request timed out is displayed". This exception also increments packets lost. 
+        Once the sequence number reaches 10, the while loop is exited, and the socket is closed. 
     </p>
 </dd></dl></dd></dl>
 
@@ -215,7 +218,7 @@ ENCE 3321
 
 <dl><dd><dl><dd>
     <p>    
-        The schematic for the pad cell with ESD protection (Figure 2) is similar to Figure 1. The voltage source is connected to a pActive-nWell diode, while ground is connected to a pWell-nActive diode. The connection pin to the pad cell is connected between both diodes. 
+        The function ping_statistics() calculates and displays the ping statistics. First, the global variables are defined, and the title of the ping statistics section is displayed. The packet loss is then calculated by taking the total number of packets lost divided by ten and multiplied by 100. The total number of packets received is calculated by subtracting the total number of packets lost from ten. Lastly, the total number of packets transmitted, packets received, packet loss, and total RTT are displayed. 
     </p>
 </dd></dl></dd></dl>
 
@@ -253,7 +256,9 @@ ENCE 3321
 <h2>Conclusion</h3>  <a name="conclusion"></a>
 
 <dl><dd>
-    <p>Conslusion</p>
+    <p>
+        The output of the program can be seen in both Figures 9 and 10. The client successfully pings the server and listens for an acknowledgment. Future iterations of this program might include handling when the request to the server does timeout. Instead of moving on with the next packet, the client should send the same one until it receives a successful acknowledgment. The full code is also included in Figure 11. 
+    </p>
     <p align="center">
         <img width="750" height="300" src="https://github.com/tobywerthan/ENCE_3321_NetworkDesign_2023/assets/55803740/931e1e12-d1dc-4940-851f-42b84a76c35b">
     </p>
