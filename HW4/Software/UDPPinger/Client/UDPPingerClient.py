@@ -32,6 +32,8 @@ def ping_client():
 
     # Sequence number of the ping message
     ptime = 0
+
+    # Set round trip time, number of packets lost, client input, and number of client inputs to empty or zero
     RTT = 0
     packet_lost = 0
     client_input = ""
