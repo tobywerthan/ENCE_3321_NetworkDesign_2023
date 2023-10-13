@@ -119,8 +119,14 @@ ENCE 3321
 <dl><dd><dl><dd>
     <p>    
         The function ping_client() makes use of the socket created in socket_create() to communicate with the server. First, the necessary global variables are declared, and variables are initialized. The sequence number (each iteration of the ping) is set to zero. Likewise, the total RTT, packets lost, and input count are all initialized at zero. The client input is initialized to an empty string. 
+    </p>
+    <p>
         A while loop checks the client input, and will continue looping if the string does not equal, "RND" or "NO RND". Within the loop, if the input count is greater than zero (the client has yet to input any commands since program execution) an error message is displayed with the unrecognized command. The list of valid commands is also displayed. The client input is then recorded and the input count increments. Once the while loop completes (the client enters a valid command), the entered command is displayed. 
+    </p>
+    <p>
         Another while loop then checks if the sequence number is less than ten. If so, the sequence number is incremented. The message to be sent to the server is then set to the client input. A try-except block then wraps the entire individual ping to the server. The current time is then recorded, and another try-except block is used to send the encoded message to the server. If an error occurs when sending the message, the error is printed. The data from the server is then received and another timestamp is recorded. The RTT for the individual ping is calculated using the two recorded timestamps. That value is then used to add to the total RTT. The amount of bytes received from the server is then recorded. The number of bytes, address, sequence number, and packet RTT are all displayed proceeding with a delay of one second. In the event that the client selects "RND" mode, the server will occasionally not send back messages. Because the timeout is set to one second, the exception is hit, and "Request timed out is displayed". This exception also increments packets lost. 
+    </p>
+    <p>
         Once the sequence number reaches 10, the while loop is exited, and the socket is closed. 
     </p>
 </dd></dl></dd></dl>
