@@ -1,0 +1,88 @@
+Network Design Homework 5 - FTP Server
+
+DETAILS OF OPERATIONS
+
+2023-10-26 20:14:47.013788+00:00: User tobywerthan attempted a logout command from IP: 127.0.0.1 and Port: 52346
+2023-10-26 20:15:46.291560+00:00: User davidki attempted a login command from IP: 127.0.0.1 and Port: 52364
+2023-10-26 20:15:55.584744+00:00: User davidki attempted a send command with message: 'message' from IP: 127.0.0.1 and Port: 52366
+2023-10-26 20:15:58.498066+00:00: User davidki attempted a logout command from IP: 127.0.0.1 and Port: 52367
+2023-10-26 20:16:16.247540+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 52368
+2023-10-26 20:16:19.694937+00:00: User tobywerthan attempted a make directory command with folder: 'test1' from IP: 127.0.0.1 and Port: 52369
+2023-10-26 20:16:22.470350+00:00: User tobywerthan attempted a cd command with path: 'test1' from IP: 127.0.0.1 and Port: 52370
+2023-10-26 20:16:29.990015+00:00: User tobywerthan attempted a store command with file: 'store_test.txt' from IP: 127.0.0.1 and Port: 52371
+2023-10-26 20:16:36.260579+00:00: User tobywerthan attempted a cd command with path: '../' from IP: 127.0.0.1 and Port: 52372
+2023-10-26 20:16:40.356293+00:00: User tobywerthan attempted a logout command from IP: 127.0.0.1 and Port: 52374
+2023-10-27 00:35:57.948154+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 54481
+2023-10-27 00:38:25.454357+00:00: User joshmejia attempted a login command from IP: 10.0.0.230 and Port: 54135
+2023-10-27 00:38:31.579893+00:00: User joshmejia attempted a logout command from IP: 10.0.0.230 and Port: 54136
+2023-10-27 00:38:34.729749+00:00: User tobywerthan attempted a logout command from IP: 127.0.0.1 and Port: 54493
+2023-10-27 00:38:47.516338+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 54494
+2023-10-27 00:38:50.019025+00:00: User tobywerthan attempted a logout command from IP: 127.0.0.1 and Port: 54495
+2023-10-27 00:39:00.946457+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 54499
+2023-10-27 00:39:00.986094+00:00: User joshmejia attempted a login command from IP: 10.0.0.230 and Port: 54147
+2023-10-27 02:16:38.531033+00:00: User anonymous attempted a login command from IP: 127.0.0.1 and Port: 55812
+2023-10-27 02:16:46.625826+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 55813
+2023-10-27 02:16:53.881112+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55814
+2023-10-27 02:19:00.737315+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55823
+2023-10-27 02:20:11.518390+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55826
+2023-10-27 02:21:22.994316+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55843
+2023-10-27 02:22:06.252573+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55850
+2023-10-27 02:23:04.766359+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55858
+2023-10-27 02:24:21.580390+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55867
+2023-10-27 02:25:34.543430+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55869
+2023-10-27 02:26:37.462039+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55874
+2023-10-27 02:28:11.682292+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55883
+2023-10-27 02:28:20.693536+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55885
+2023-10-27 02:28:55.276929+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55887
+2023-10-27 02:29:03.672745+00:00: User tobywerthan attempted a send command with message: 'toby' from IP: 127.0.0.1 and Port: 55898
+2023-10-27 02:31:55.632517+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 55915
+2023-10-27 02:32:06.854646+00:00: User goncalomartins attempted a login command from IP: 127.0.0.1 and Port: 55916
+2023-10-27 02:32:27.607282+00:00: User goncalomartins attempted a cd command with path: 'test1' from IP: 127.0.0.1 and Port: 55922
+2023-10-27 02:32:48.090813+00:00: User goncalomartins attempted a make directory command with folder: 'test2' from IP: 127.0.0.1 and Port: 55924
+2023-10-27 02:34:26.168057+00:00: User goncalomartins attempted a login command from IP: 127.0.0.1 and Port: 56012
+2023-10-27 02:35:02.219014+00:00: User goncalomartins attempted a make directory command with folder: 'test1' from IP: 127.0.0.1 and Port: 56017
+2023-10-27 02:37:50.141783+00:00: User goncalomartins attempted a login command from IP: 127.0.0.1 and Port: 56039
+2023-10-27 02:37:52.266458+00:00: User goncalomartins attempted a cd command with path: 'test1' from IP: 127.0.0.1 and Port: 56040
+2023-10-27 02:37:57.345518+00:00: User goncalomartins attempted a cd command with path: '../' from IP: 127.0.0.1 and Port: 56042
+2023-10-27 02:38:01.562305+00:00: User goncalomartins attempted a cd command with path: 'test1' from IP: 127.0.0.1 and Port: 56043
+2023-10-27 02:38:32.434231+00:00: User goncalomartins attempted a login command from IP: 127.0.0.1 and Port: 56045
+2023-10-27 02:38:37.714238+00:00: User goncalomartins attempted a cd command with path: 'test1' from IP: 127.0.0.1 and Port: 56046
+2023-10-27 02:40:35.006609+00:00: User goncalomartins attempted a login command from IP: 127.0.0.1 and Port: 56059
+2023-10-27 02:42:48.158820+00:00: User goncalomartins attempted a login command from IP: 127.0.0.1 and Port: 56068
+2023-10-27 02:48:31.093097+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56098
+2023-10-27 02:48:47.247754+00:00: User tobywerthan attempted a logout command from IP: 127.0.0.1 and Port: 56101
+2023-10-27 02:49:06.335753+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56108
+2023-10-27 02:49:25.490780+00:00: User tobywerthan attempted a retrieve command for the file: 'test.pdf' from IP: 127.0.0.1 and Port: 56110
+2023-10-27 02:52:55.808039+00:00: User tobywerthan attempted a list command from IP: 127.0.0.1 and Port: 56161
+2023-10-27 02:53:03.072080+00:00: User tobywerthan attempted a cd command with path: 'test1' from IP: 127.0.0.1 and Port: 56165
+2023-10-27 02:53:06.487862+00:00: User tobywerthan attempted a list command from IP: 127.0.0.1 and Port: 56166
+2023-10-27 02:53:18.063428+00:00: User tobywerthan attempted a cd command with path: 'test2' from IP: 127.0.0.1 and Port: 56169
+2023-10-27 02:53:27.552109+00:00: User tobywerthan attempted a list command from IP: 127.0.0.1 and Port: 56170
+2023-10-27 02:54:49.429519+00:00: User tobywerthan attempted a store command with file: 'store_test.txt' from IP: 127.0.0.1 and Port: 56180
+2023-10-27 02:58:31.184328+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56210
+2023-10-27 03:00:19.793808+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56236
+2023-10-27 03:04:03.602350+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56328
+2023-10-27 03:09:34.514302+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56375
+2023-10-27 03:10:51.097184+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56379
+2023-10-27 03:12:36.146460+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56394
+2023-10-27 03:13:44.976664+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56398
+2023-10-27 03:13:52.612792+00:00: User tobywerthan attempted a store command with file: 'dsfjhfds' from IP: 127.0.0.1 and Port: 56399
+2023-10-27 03:17:11.200392+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56414
+2023-10-27 03:17:13.245496+00:00: User tobywerthan attempted a store command with file: 'dsfjhfds' from IP: 127.0.0.1 and Port: 56415
+2023-10-27 03:17:49.780134+00:00: User tobywerthan attempted a store command with file: 'wlkdfhsdf' from IP: 127.0.0.1 and Port: 56417
+2023-10-27 03:20:03.087813+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56428
+2023-10-27 03:20:05.772076+00:00: User tobywerthan attempted a store command with file: 'dsfjhfds' from IP: 127.0.0.1 and Port: 56429
+2023-10-27 03:21:23.492064+00:00: User tobywerthan attempted a store command with file: 'dsfjhfds' from IP: 127.0.0.1 and Port: 56442
+2023-10-27 03:21:41.735766+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56443
+2023-10-27 03:21:46.523672+00:00: User tobywerthan attempted a store command with file: 'jdjhf' from IP: 127.0.0.1 and Port: 56444
+2023-10-27 03:21:56.196675+00:00: User tobywerthan attempted a store command with file: 'store_test.txtThis' from IP: 127.0.0.1 and Port: 56447
+2023-10-27 03:22:40.851011+00:00: User tobywerthan attempted a remove command for the file: 'store_test.txtThis' from IP: 127.0.0.1 and Port: 56449
+2023-10-27 03:23:53.396849+00:00: User tobywerthan attempted a login command from IP: 127.0.0.1 and Port: 56459
+2023-10-27 03:24:34.219704+00:00: User tobywerthan attempted a make directory command with folder: 'test1' from IP: 127.0.0.1 and Port: 56462
+2023-10-27 03:24:43.418312+00:00: User tobywerthan attempted a cd command with path: 'test1' from IP: 127.0.0.1 and Port: 56463
+2023-10-27 03:24:55.019710+00:00: User tobywerthan attempted a store command with file: 'store_test.txt' from IP: 127.0.0.1 and Port: 56464
+2023-10-27 03:25:05.939116+00:00: User tobywerthan attempted a cd command with path: '../' from IP: 127.0.0.1 and Port: 56469
+2023-10-27 03:25:15.562654+00:00: User tobywerthan attempted a cd command with path: 'test1' from IP: 127.0.0.1 and Port: 56472
+2023-10-27 03:25:24.219035+00:00: User tobywerthan attempted a remove command for the file: 'store_test.txt' from IP: 127.0.0.1 and Port: 56473
+2023-10-27 03:25:28.715271+00:00: User tobywerthan attempted a cd command with path: '../' from IP: 127.0.0.1 and Port: 56474
+2023-10-27 03:25:32.315261+00:00: User tobywerthan attempted a remove directory command for the folder: 'test1' from IP: 127.0.0.1 and Port: 56475

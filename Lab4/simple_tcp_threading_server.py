@@ -16,7 +16,7 @@ def socket_create():
     global host
     global port
     global s
-    host = ''
+    host = ""
     port = 1001
 
     try:
@@ -46,14 +46,18 @@ def tcp_server():
     global s
 
     try:
-
         # Listen for incoming connections
         s.listen(1)
-
         while True:
             try:
                 connectionSocket, addr = s.accept()
-                x = threading.Thread(target=client_thread, args=(connectionSocket, addr,))
+                x = threading.Thread(
+                    target=client_thread,
+                    args=(
+                        connectionSocket,
+                        addr,
+                    ),
+                )
                 x.setDaemon(True)
                 x.start()
             except socket.error as e:
@@ -64,10 +68,11 @@ def tcp_server():
         print(str(e))
         raise mySocketError(e)
 
+
 def client_thread(connectionSocket, addr):
     data = connectionSocket.recv(2048)
     print("IP: " + addr[0] + " | Port: " + str(addr[1]))
-    print("Message: " + str(data.decode('utf-8')))
+    print("Message: " + str(data.decode("utf-8")))
 
     connectionSocket.sendto(data.upper(), (addr[0], addr[1]))
 
@@ -76,7 +81,6 @@ def client_thread(connectionSocket, addr):
 
 # Main Function
 if __name__ == "__main__":
-
     try:
         # created socket
         socket_create()
